@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     def checkoutVars = checkout([$class: 'GitSCM', userRemoteConfigs: [[url: 'https://github.com/mcasperson/RandomQuotes-Java.git']]])
-                    echo checkoutVars
+                    echo checkoutVars.toString()
                     env.GIT_URL = checkoutVars.GIT_URL
                     env.GIT_COMMIT = checkoutVars.GIT_COMMIT
                     env.GIT_BRANCH = checkoutVars.BRANCH_NAME
