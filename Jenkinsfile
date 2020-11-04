@@ -41,6 +41,16 @@ pipeline {
                 sh(script: "mvn package", returnStdout: true)
             }
         }
+        stage('Checkout') {
+            steps {
+                script {
+                    def checkoutVars = checkout([$class: 'GitSCM', userRemoteConfigs: [[url: 'https://github.com/mcasperson/RandomQuotes-Java.git']]])
+                    env.GIT_URL = checkoutVars.GIT_URL
+                    env.GIT_COMMIT = checkoutVars.GIT_COMMIT
+                }
+                octopusPushBuildInformation additionalArgs: '', commentParser: 'GitHub', overwriteMode: 'FailIfExists', packageId: 'randomquotes', packageVersion: "1.0.${BUILD_NUMBER}", serverId: "${ServerId}", spaceId: "${SpaceId}", toolId: 'Default', verboseLogging: false, gitUrl: "${GIT_URL}", gitCommit: "${GIT_COMMIT}"
+            }
+        }
         stage('deploy') {
             steps {                
                 octopusPack additionalArgs: '', includePaths: "${env.WORKSPACE}/target/randomquotes.1.0.${BUILD_NUMBER}.jar", outputPath: "${env.WORKSPACE}", overwriteExisting: false, packageFormat: 'zip', packageId: 'randomquotes', packageVersion: "1.0.${BUILD_NUMBER}", sourcePath: '', toolId: 'Default', verboseLogging: false
