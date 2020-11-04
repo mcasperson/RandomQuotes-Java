@@ -47,6 +47,7 @@ pipeline {
                     def checkoutVars = checkout([$class: 'GitSCM', userRemoteConfigs: [[url: 'https://github.com/mcasperson/RandomQuotes-Java.git']]])
                     env.GIT_URL = checkoutVars.GIT_URL
                     env.GIT_COMMIT = checkoutVars.GIT_COMMIT
+                    env.GIT_BRANCH = checkoutVars.GIT_BRANCH
                 }
                 octopusPushBuildInformation additionalArgs: '', commentParser: 'GitHub', overwriteMode: 'FailIfExists', packageId: 'randomquotes', packageVersion: "1.0.${BUILD_NUMBER}", serverId: "${ServerId}", spaceId: "${SpaceId}", toolId: 'Default', verboseLogging: false, gitUrl: "${GIT_URL}", gitCommit: "${GIT_COMMIT}"
             }
