@@ -2,7 +2,7 @@ pipeline {
     //  parameters here provide the shared values used with each of the Octopus pipeline steps.
     parameters {
         // The space ID that we will be working with. The default space is typically Spaces-1.
-        string(defaultValue: 'Spaces-1', description: '', name: 'SpaceId', trim: true)
+        string(defaultValue: 'Spaces-43', description: '', name: 'SpaceId', trim: true)
         // The Octopus project we will be deploying.
         string(defaultValue: 'RandomQuotes', description: '', name: 'ProjectName', trim: true)
         // The environment we will be deploying to.
